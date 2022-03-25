@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import "./style.css";
-import { Row, Col, Button, Form } from "react-bootstrap";
-import { AiOutlineGooglePlus, AiFillApple } from "react-icons/ai";
-import { FaFacebookSquare } from "react-icons/fa";
-import { useNavigate, Link } from "react-router-dom";
-import OauthLinks from "./OauthLinks";
+import React, { useState, useEffect } from "react"
+import "./style.css"
+import { Row, Col, Button, Form } from "react-bootstrap"
+import { AiOutlineGooglePlus, AiFillApple } from "react-icons/ai"
+import { FaFacebookSquare } from "react-icons/fa"
+import { useNavigate, Link } from "react-router-dom"
+import OauthLinks from "./OauthLinks"
 
 function MyLogin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [name, setName] = useState("")
+  const [password, setPassword] = useState("")
+  const navigate = useNavigate()
 
   //   const handelRegister = () => {
   //     navigate("/");
@@ -17,27 +17,27 @@ function MyLogin() {
 
   const handleRegister = async () => {
     const newPost = {
-      email: email,
+      name: name,
       password: password,
-    };
+    }
     try {
-      let res = await fetch("http://localhost:3001/users/login", {
+      let res = await fetch("http://localhost:3010/users/login", {
         method: "POST",
         body: JSON.stringify(newPost),
         headers: { "Content-type": "application/json" },
-      });
-      if (res.status !== 200) alert("you you entered wrong password or email");
+      })
+      if (res.status !== 200) alert("you you entered wrong password or email")
       if (res.ok) {
-        let data = await res.json();
-        console.log(data.posts);
-        localStorage.setItem("MyToken", data.token);
-        navigate("/");
-        console.log("Successfully logged in!");
+        let data = await res.json()
+        console.log(data.posts)
+        localStorage.setItem("MyToken", data.token)
+        navigate("/")
+        console.log("Successfully logged in!")
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
   return (
     <div className="main-div-login">
       <div className="shadow-needed">
@@ -56,33 +56,15 @@ function MyLogin() {
             <p>Enter your e-mail address to start</p>
             <Form>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="shadow-none"
-                  type="email"
-                  placeholder="Enter email"
-                />
+                <Form.Label>Name</Form.Label>
+                <Form.Control value={name} onChange={(e) => setName(e.target.value)} className="shadow-none" type="name" placeholder="Enter name" />
               </Form.Group>
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="shadow-none"
-                  type="password"
-                  placeholder="Enter password"
-                />
+                <Form.Control value={password} onChange={(e) => setPassword(e.target.value)} className="shadow-none" type="password" placeholder="Enter password" />
               </Form.Group>
             </Form>
-            <Button
-              className="mt-3 mb-5"
-              variant="secondary"
-              type="submit"
-              disabled={!email || !password}
-              onClick={() => handleRegister()}
-            >
+            <Button className="mt-3 mb-5" variant="secondary" type="submit" disabled={!name || !password} onClick={() => handleRegister()}>
               Login
             </Button>
           </Col>
@@ -97,7 +79,7 @@ function MyLogin() {
         </Button>
       </Link>
     </div>
-  );
+  )
 }
 
-export default MyLogin;
+export default MyLogin
